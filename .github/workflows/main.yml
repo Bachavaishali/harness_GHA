@@ -34,8 +34,7 @@ jobs:
       run: |
           minikube service list 
           minikube service nodejs-app --url
-      
-   
+    
     - name: Harness Deploy Action
       id: deploy
       uses: fac/harness-deploy-action@v1.0
