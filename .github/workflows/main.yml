@@ -1,26 +1,39 @@
-name: Docker Image CI
+name: Deploy to Minikube using GitHub Actions
 
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
+  
 jobs:
-
-  build:
-
+  job1:
     runs-on: ubuntu-latest
-
+    name: build Node.js Docker Image and deploy to minikube
     steps:
     - uses: actions/checkout@v2
-    - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    - name: Try the cluster !
+      run: kubectl get pods -A
+    - name: Build image
       run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag vaishali2072/deploy_image_to_dockerhub:${{ github.sha }}
+          export SHELL=/bin/bash
+          eval $(minikube -p minikube docker-env)
+          docker build -f ./Dockerfile -t devopshint/node-app:latest .
+          echo -n "verifying images:"
+          docker images         
+    - name: Deploy to minikube
+      run:
+        kubectl apply -f k8s-node-app.yaml
+    - name: get service details
+      run:
+        kubectl get service
+    - name: get pod logs
+      run:
+        kubectl get pods
+    - name: sleep for 2 min
+      run:
+        sleep 120
+    
+    - name: Test service URLs
+      run: |
+          minikube service list 
+          minikube service nodejs-app --url
       
     - name: Docker Push
       run: docker push vaishali2072/deploy_image_to_dockerhub:${{ github.sha }}
