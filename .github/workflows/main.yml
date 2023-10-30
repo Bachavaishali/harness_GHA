@@ -31,4 +31,5 @@ jobs:
         application: default_project
         services: deployment
         version: ${{ github.sha }}
+        
         harnessApiKey: ${{ secrets.HARNESS_API_KEY }}
