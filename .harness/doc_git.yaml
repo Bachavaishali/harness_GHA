@@ -48,3 +48,4 @@ pipeline:
           pipelineStatus: All
         delegateSelectors:
           - docker-delegate
+          - helm-delegate
