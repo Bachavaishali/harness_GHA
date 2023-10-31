@@ -46,6 +46,7 @@ pipeline:
                             drop: []
                             add: []
                         nodeSelector: {}
+                        harnessImageConnectorRef: account.harnessImage
                     reports:
                       type: JUnit
                       spec:
