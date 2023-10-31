@@ -46,3 +46,6 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: All
+        delegateSelectors:
+          - docker-delegate
+          - helm-delegate
