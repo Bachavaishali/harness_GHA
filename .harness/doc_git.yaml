@@ -29,8 +29,8 @@ pipeline:
                     connectorRef: harnessImage
                     image: deploy_image_to_dockerhub
                     command: |
-                      echo "hello"
-                    shell: Powershell
+                      kubectl get all
+                    shell: Bash
                     infrastructure:
                       type: KubernetesDirect
                       spec:
@@ -53,6 +53,7 @@ pipeline:
                         paths: []
                     outputVariables: []
                     envVariables: {}
+                    imagePullPolicy: Always
                   timeout: 10s
               - step:
                   name: Rollout Deployment
@@ -79,3 +80,5 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: All
+        delegateSelectors:
+          - docker-delegate
