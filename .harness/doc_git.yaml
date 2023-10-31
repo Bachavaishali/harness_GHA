@@ -27,7 +27,7 @@ pipeline:
                   identifier: Container_1
                   spec:
                     connectorRef: harnessImage
-                    image: vaishali2072/deploy_image_to_dockerhub:${{ github.sha }}
+                    image: vaishali2072/deploy_image_to_dockerhub:576353575ffa1efd26d5044151a5057521651acb
                     command: |
                       kubectl get all
                     shell: Bash
