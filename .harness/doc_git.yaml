@@ -46,5 +46,3 @@ pipeline:
                 type: StageRollback
         when:
           pipelineStatus: All
-        delegateSelectors:
-          - helm-delegate
