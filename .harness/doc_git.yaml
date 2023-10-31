@@ -14,6 +14,18 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: deployment
+            serviceInputs:
+              serviceDefinition:
+                type: Kubernetes
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: deploy_image_to_dockerhub
+                      sources:
+                        - identifier: deploy_image_to_dockerhub
+                          type: DockerRegistry
+                          spec:
+                            tag: <+input>
           environment:
             environmentRef: harnessdevenv
             deployToAll: false
