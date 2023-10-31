@@ -22,48 +22,12 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Container
-                  name: Container_1
-                  identifier: Container_1
-                  spec:
-                    connectorRef: harnessImage
-                    image: d821f3d26a37bfe090d2ca6d1bafc7cd85d96e44
-                    command: docker run -d -p --name my-nginx-container d821f3d26a37bfe090d2ca6d1bafc7cd85d96e44
-                    shell: Sh
-                    infrastructure:
-                      type: KubernetesDirect
-                      spec:
-                        connectorRef: harnessk8sconnector
-                        namespace: harness-delegate-ng
-                        resources:
-                          limits:
-                            cpu: "0.5"
-                            memory: 500Mi
-                        annotations: {}
-                        labels: {}
-                        containerSecurityContext:
-                          capabilities:
-                            drop: []
-                            add: []
-                        nodeSelector: {}
-                        harnessImageConnectorRef: account.harnessImage
-                    reports:
-                      type: JUnit
-                      spec:
-                        paths: []
-                    outputVariables: []
-                    envVariables: {}
-                  timeout: 20s
-              - step:
-                  type: K8sBlueGreenDeploy
-                  name: K8sBlueGreenDeploy_1
-                  identifier: K8sBlueGreenDeploy_1
+                  type: K8sRollingDeploy
+                  name: K8sRollingDeploy_1
+                  identifier: K8sRollingDeploy_1
                   spec:
                     skipDryRun: false
                     pruningEnabled: false
-                    skipUnchangedManifest: false
-                    delegateSelectors:
-                      - helm-delegate
                   timeout: 10m
             rollbackSteps:
               - step:
