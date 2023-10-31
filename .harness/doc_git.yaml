@@ -77,8 +77,5 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
-        delegateSelectors:
-          - docker-delegate
-          - helm-delegate
         when:
           pipelineStatus: All
