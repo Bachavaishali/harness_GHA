@@ -22,40 +22,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Container
-                  name: Container_1
-                  identifier: Container_1
-                  spec:
-                    connectorRef: harnessImage
-                    image: vaishali2072/deploy_image_to_dockerhub:576353575ffa1efd26d5044151a5057521651acb
-                    command: |
-                      kubectl get all
-                    shell: Bash
-                    infrastructure:
-                      type: KubernetesDirect
-                      spec:
-                        connectorRef: harnessk8sconnector
-                        namespace: harness-delegate-ng
-                        resources:
-                          limits:
-                            cpu: "0.5"
-                            memory: 500Mi
-                        annotations: {}
-                        labels: {}
-                        containerSecurityContext:
-                          capabilities:
-                            drop: []
-                            add: []
-                        nodeSelector: {}
-                    reports:
-                      type: JUnit
-                      spec:
-                        paths: []
-                    outputVariables: []
-                    envVariables: {}
-                    imagePullPolicy: Always
-                  timeout: 10s
-              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy
