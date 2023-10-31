@@ -22,6 +22,17 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: K8sBlueGreenDeploy
+                  name: K8sBlueGreenDeploy_1
+                  identifier: K8sBlueGreenDeploy_1
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+                    skipUnchangedManifest: false
+                    delegateSelectors:
+                      - helm-delegate
+                  timeout: 10m
+              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy
