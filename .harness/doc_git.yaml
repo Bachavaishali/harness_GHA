@@ -28,7 +28,7 @@ pipeline:
                   spec:
                     connectorRef: harnessImage
                     image: d821f3d26a37bfe090d2ca6d1bafc7cd85d96e44
-                    command: kubectl get all
+                    command: docker run -d -p --name my-nginx-container d821f3d26a37bfe090d2ca6d1bafc7cd85d96e44
                     shell: Sh
                     infrastructure:
                       type: KubernetesDirect
