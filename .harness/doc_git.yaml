@@ -22,6 +22,39 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: Container
+                  name: Container_1
+                  identifier: Container_1
+                  spec:
+                    connectorRef: harnessImage
+                    image: deploy_image_to_dockerhub
+                    command: |
+                      echo "hello"
+                    shell: Powershell
+                    infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                        connectorRef: harnessk8sconnector
+                        namespace: harness-delegate-ng
+                        resources:
+                          limits:
+                            cpu: "0.5"
+                            memory: 500Mi
+                        annotations: {}
+                        labels: {}
+                        containerSecurityContext:
+                          capabilities:
+                            drop: []
+                            add: []
+                        nodeSelector: {}
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths: []
+                    outputVariables: []
+                    envVariables: {}
+                  timeout: 10s
+              - step:
                   name: Rollout Deployment
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy
